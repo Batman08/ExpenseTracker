@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if ($_SESSION["medicalPersonId"] == null && basename($_SERVER['PHP_SELF']) != "Login.php") {
-    header('Location: ../Login/Login.php');
-}
-?>
-
 <!DOCTYPE html>
 <html>
 
