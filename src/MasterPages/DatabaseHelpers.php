@@ -41,3 +41,9 @@ function CallDatabase($sql, $isDataReturned)
         echo "Error!" . $e->getMessage();
     }
 }
+
+function GetUserLoginDetails($p_Username)
+{
+    $details = CallDatabase("call spGetUserLoginDetails('$p_Username')", true);
+    return $details[0];
+}

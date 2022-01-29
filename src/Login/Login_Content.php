@@ -5,7 +5,7 @@
                 <h3><i class="fas fa-sign-in-alt"></i> Login</h3>
             </div>
             <div class="card-body">
-                <form action='' method='POST'>
+                <form action='Login_Authenticate.php' method='POST'>
                     <div class="form-group">
                         <label for="username">Username:</label>
                         <input type="text" class="form-control" name="txtUsername" placeholder="Enter Username" maxlength="256" required>
