@@ -17,6 +17,7 @@
                     <div class="form-group" style="margin-top: 20px;">
                         <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Login</button>
                     </div>
+                    <div class="form-text">Don't have an account? <a href="/SignUp/SignUp.php" class="link-primary">Sign Up</a></div>
                 </form>
             </div>
         </div>
