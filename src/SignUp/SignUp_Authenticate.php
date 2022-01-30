@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     include("../MasterPages/DatabaseHelpers.php");
 
     $p_Username =  $_POST["txtSignUpUsername"];
@@ -8,12 +9,12 @@
 
     if ($p_Username != $loginDetails["Username"]){
         SaveUserLoginDetails($p_Username, $p_Password);
-        $_SESSION["savedDetails"] = "success";
+        $submissionValue = "success";
     }
     else {
-        // show error message using session variable
-        $_SESSION["savedDetails"] = "failed";
+        // show error message
+        $submissionValue = "failed";
     }
 
-    header("Location: /SignUp/SignUp.php?SavedDetails=" . $_SESSION["savedDetails"]);
+    header("Location: /SignUp/SignUp.php?SavedDetails=" . $submissionValue);
 ?>

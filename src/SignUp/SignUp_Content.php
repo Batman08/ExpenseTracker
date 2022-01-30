@@ -6,7 +6,7 @@
 <?php } elseif ($_GET['SavedDetails'] == "failed") { ?>
     <div class="alert alert-danger" role="alert">
         <i class="fas fa-times fa-lg"></i>
-        Account with this Username already exist, pleast try a different one.
+        Account with this username already exist, pleast try a different one.
     </div>
 <?php } ?>
 
