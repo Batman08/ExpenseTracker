@@ -47,3 +47,8 @@ function GetUserLoginDetails($p_Username)
     $details = CallDatabase("call spGetUserLoginDetails('$p_Username')", true);
     return $details[0];
 }
+
+function SaveUserLoginDetails($p_Username, $p_Password)
+{
+    return CallDatabase("call spSaveUserLoginDetails('$p_Username', '$p_Password')", false);
+}
