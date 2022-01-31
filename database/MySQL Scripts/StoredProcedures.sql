@@ -7,8 +7,8 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spGetUserLoginDetails`(IN p_UsernameEntered Varchar(256))
 BEGIN
 	SELECT Username, Password
-	FROM Users
-	WHERE Username = p_UsernameEntered;
+	FROM Users u
+	WHERE u.Username = p_UsernameEntered;
 END$$
 DELIMITER ;
 
@@ -22,7 +22,7 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spSaveUserLoginDetails`(IN p_Username VARCHAR(30), IN p_Password VARCHAR(50))
 BEGIN
 -- get user from username
-    SELECT UserId INTO @UserId FROM Users WHERE Username = p_Username;
+    SELECT UserId INTO @UserId FROM Users u WHERE u.Username = p_Username;
 
     IF @UserId IS NULL THEN
         -- user does not exist so we'll insert
@@ -30,5 +30,32 @@ BEGIN
 		VALUES (p_Username, p_Password);
         SET @UserId := LAST_INSERT_ID();
     END IF;
+END$$
+DELIMITER ;
+
+
+-- [spSaveUserExpense]
+-- This will save user expense
+-- ---------------------------
+
+DROP procedure IF EXISTS `spSaveUserExpense`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spSaveUserExpense` (p_UserId INT, p_Name VARCHAR(256), p_PaymentType VARCHAR(256), p_Date DATE, p_Amount DOUBLE)
+BEGIN
+	INSERT INTO UserExpenses(UserId, Name, PaymentType, Date, Amount)
+	VALUES(p_UserId, p_Name, p_PaymentType, p_Date, p_Amount);
+END$$
+DELIMITER ;
+
+
+-- [spGetUserId]
+-- This will get logged in user id
+-- -------------------------------
+
+DROP procedure IF EXISTS `spGetUserId`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spGetUserId` (p_Username VARCHAR(30))
+BEGIN
+	SELECT UserId FROM Users u WHERE u.Username = p_Username;
 END$$
 DELIMITER ;
