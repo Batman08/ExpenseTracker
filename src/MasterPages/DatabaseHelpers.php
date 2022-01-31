@@ -52,3 +52,14 @@ function SaveUserLoginDetails($p_Username, $p_Password)
 {
     return CallDatabase("call spSaveUserLoginDetails('$p_Username', '$p_Password')", false);
 }
+
+function GetUserId($p_Username)
+{
+    $userId = CallDatabase("call spGetUserId('$p_Username')", true);
+    return $userId[0]['UserId'];
+}
+
+function SaveUserExpense($p_UserId, $p_Item, $p_PaymentType, $p_Date, $p_Cost)
+{
+    return CallDatabase("call spSaveUserExpense('$p_UserId', '$p_Item', '$p_PaymentType', '$p_Date', '$p_Cost')", false);
+}
