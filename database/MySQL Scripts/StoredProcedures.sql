@@ -59,3 +59,24 @@ BEGIN
 	SELECT UserId FROM Users u WHERE u.Username = p_Username;
 END$$
 DELIMITER ;
+
+
+-- [spGetAllUserExpenses]
+-- This will get all user expenses
+-- -------------------------------
+
+DROP procedure IF EXISTS `spGetAllUserExpenses`;
+DELIMITER $$
+CREATE PROCEDURE `spGetAllUserExpenses` (IN p_UserId INT)
+BEGIN
+CREATE TEMPORARY TABLE Temp_AllExpenses
+	SELECT Name, PaymentType, DATE_FORMAT(ex.Date, "%d %b %Y at %h:%i %p") AS Date, Amount
+	FROM UserExpenses ex
+	WHERE ex.UserId = p_UserId
+	ORDER BY ex.UserExpensesId DESC;
+
+	SET @row_number = 0;
+	SELECT *, (@row_number:=@row_number + 1) AS RowNum
+	FROM Temp_AllExpenses;
+END$$
+DELIMITER ;
