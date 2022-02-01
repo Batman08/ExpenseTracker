@@ -63,3 +63,8 @@ function SaveUserExpense($p_UserId, $p_Item, $p_PaymentType, $p_Date, $p_Cost)
 {
     return CallDatabase("call spSaveUserExpense('$p_UserId', '$p_Item', '$p_PaymentType', '$p_Date', '$p_Cost')", false);
 }
+
+function GetAllUserExpenses($p_UserId)
+{
+    return CallDatabase("call spGetAllUserExpenses('$p_UserId')", true);
+}

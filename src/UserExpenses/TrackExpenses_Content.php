@@ -1,8 +1,10 @@
-        <?php 
+        <?php
+        session_start();
         echo $_SESSION["username"];
         echo $_SESSION["userId"];
+        $allUserExpenses = GetAllUserExpenses($_SESSION['userId']);
         ?>
-        
+
         <div class="row" style="padding-bottom: 60px;">
             <div class="col-md-6 mx-auto">
                 <div class="card">
@@ -10,7 +12,7 @@
                         <h3><i class="fas fa-plus-circle"></i> Add Expense</h3>
                     </div>
                     <div class="card-body">
-                        <form id="formAddExpense" method='POST'>
+                        <form id="formAddExpense" method="POST">
 
                             <!-- Date -->
                             <div class="row padBottom10">
@@ -58,7 +60,7 @@
                             </div>
 
                             <div class="form-group" style="margin-top: 20px;">
-                                <button type="submit" onclick="processAddExpenseForm()" class="btn btn-primary btn-block"><i class="fas fa-plus-circle"></i> Add</button>
+                                <button type="button" onclick="processAddExpenseForm()" class="btn btn-primary btn-block"><i class="fas fa-plus-circle"></i> Add</button>
                             </div>
                         </form>
                     </div>
@@ -66,11 +68,11 @@
             </div>
         </div>
 
-        <button type="button" onclick="deleteRow()" class="btn btn-danger">Remove Item</button>
+        <!-- <button type="button" onclick="deleteRow()" class="btn btn-danger">Remove Item</button> -->
 
 
         <div class="row">
-            <div class="col-md-6 mx-auto">
+            <div>
                 <table class="table table-striped table-hover">
                     <colgroup></colgroup>
                     <thead>
@@ -82,9 +84,7 @@
                             <th scope="col">Payment Type</th>
                         </tr>
                     </thead>
-                    <tbody id="ExpenseTrackerTable">
-                        
-                    </tbody>
+                    <tbody id="tableTrackExpense"></tbody>
                 </table>
             </div>
         </div>

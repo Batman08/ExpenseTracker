@@ -1,4 +1,21 @@
 <script>
+    window.onload = function(){
+        displayData();
+    }
+
+    function displayData(){
+        var displayData = {DisplayData: "true"};
+
+        $.ajax({
+            type: 'POST',
+            url: "TrackExpenses_Display.php",
+            data: displayData,
+            success:function(data, status){
+                $('#tableTrackExpense').html(data);
+            }
+        });
+    }
+
     function processAddExpenseForm() {
         var dataToServer = {
             Date: $("#txtDate").val(),
@@ -12,6 +29,8 @@
             url: 'TrackExpenses_Save.php',
             data: dataToServer,
              success:function(data, status){
+                 displayData();
+                 document. getElementById("formAddExpense"). reset();
                  console.log(status);
              }
         });
