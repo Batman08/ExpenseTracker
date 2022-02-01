@@ -67,7 +67,7 @@ DELIMITER ;
 
 DROP procedure IF EXISTS `spGetAllUserExpenses`;
 DELIMITER $$
-CREATE PROCEDURE `spGetAllUserExpenses` (IN p_UserId INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spGetAllUserExpenses` (IN p_UserId INT)
 BEGIN
 CREATE TEMPORARY TABLE Temp_AllExpenses
 	SELECT Name, PaymentType, DATE_FORMAT(ex.Date, "%d %b %Y") AS Date, Amount
@@ -80,5 +80,37 @@ CREATE TEMPORARY TABLE Temp_AllExpenses
 	FROM Temp_AllExpenses;
     
 	DROP TEMPORARY TABLE Temp_AllExpenses;
+END$$
+DELIMITER ;
+
+
+-- [spDeleteUserExpense]
+-- This will delete a user expense
+-- -------------------------------
+
+DROP procedure IF EXISTS `spDeleteUserExpense`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteUserExpense` (IN p_UserId INT, IN p_RowId INT)
+BEGIN
+CREATE TEMPORARY TABLE Temp_GetExpenseId
+	SELECT UserExpensesId
+	FROM UserExpenses ex
+	WHERE ex.UserId = p_UserId
+	ORDER BY ex.UserExpensesId DESC;
+
+SET @row_number = 0;
+CREATE TEMPORARY TABLE Temp_GetRowId    
+	SELECT *, (@row_number:=@row_number + 1) AS RowNum
+	FROM Temp_GetExpenseId;
+    
+SET @delete_id = 0;
+    SELECT (@delete_id:=UserExpensesId)
+    FROM Temp_GetRowId
+    WHERE RowNum = p_RowId;
+    
+    DELETE FROM UserExpenses WHERE UserExpensesId = @delete_id;
+    
+    DROP TEMPORARY TABLE Temp_GetExpenseId;
+	DROP TEMPORARY TABLE Temp_GetRowId;
 END$$
 DELIMITER ;
