@@ -11,5 +11,9 @@ $allUserExpenses = GetAllUserExpenses($_SESSION['userId']);
         <td><?= $expense['Name'] ?></td>
         <td><?= $expense['Amount'] ?></td>
         <td><?= $expense['PaymentType'] ?></td>
-    </tr>
+        <td>
+            <button type="button" class="btn btn-secondary"><i class="fas fa-edit"></i></button>
+            <button type="button" onclick="deleteUserExpense(<?= $expense['RowNum'] ?>)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+        </td>
+        </tr>
 <?php } ?>

@@ -35,4 +35,18 @@
              }
         });
     }
+
+    function deleteUserExpense(rowId){
+        var deleteData = {DeleteData: rowId};
+
+        $.ajax({
+            type: 'POST',
+            url: 'TrackExpenses_Delete.php',
+            data: deleteData,
+             success:function(data, status){
+                 displayData();
+                 console.log(status);
+             }
+        });
+    }
 </script>

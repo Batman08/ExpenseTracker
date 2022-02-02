@@ -68,3 +68,8 @@ function GetAllUserExpenses($p_UserId)
 {
     return CallDatabase("call spGetAllUserExpenses('$p_UserId')", true);
 }
+
+function DeleteUserExpense($p_UserId, $p_RowId)
+{
+    return CallDatabase("call spDeleteUserExpense('$p_UserId', '$p_RowId')", false);
+}
