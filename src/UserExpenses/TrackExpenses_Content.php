@@ -5,13 +5,40 @@
         $allUserExpenses = GetAllUserExpenses($_SESSION['userId']);
         ?>
 
-        <div class="row" style="padding-bottom: 60px;">
-            <div class="col-md-6 mx-auto">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-plus-circle"></i> Add Expense</h3>
+        <!-- Button trigger modal -->
+        <div class="form-group" style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-plus-circle"></i> Add</button>
+        </div>
+
+        <br/>
+
+        <div class="row">
+            <div>
+                <table class="table table-striped table-hover">
+                    <colgroup></colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Cost</th>
+                            <th scope="col">Payment Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableTrackExpense"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-plus-circle"></i> Add Expense</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="card-body">
+                    <div class="modal-body">
                         <form id="formAddExpense" method="POST">
 
                             <!-- Date -->
@@ -58,33 +85,12 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="form-group" style="margin-top: 20px;">
-                                <button type="button" onclick="processAddExpenseForm()" class="btn btn-primary btn-block"><i class="fas fa-plus-circle"></i> Add</button>
-                            </div>
                         </form>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle"></i> Close</button>
+                        <button type="button" onclick="processAddExpenseForm()" class="btn btn-primary btn-block" data-bs-dismiss="modal"><i class="fas fa-plus-circle"></i> Add</button>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- <button type="button" onclick="deleteRow()" class="btn btn-danger">Remove Item</button> -->
-
-
-        <div class="row">
-            <div>
-                <table class="table table-striped table-hover">
-                    <colgroup></colgroup>
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Item</th>
-                            <th scope="col">Cost</th>
-                            <th scope="col">Payment Type</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableTrackExpense"></tbody>
-                </table>
             </div>
         </div>
