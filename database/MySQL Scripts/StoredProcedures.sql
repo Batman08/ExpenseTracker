@@ -114,3 +114,33 @@ SET @delete_id = 0;
 	DROP TEMPORARY TABLE Temp_GetRowId;
 END$$
 DELIMITER ;
+
+
+-- [spGetUserRowExpense]
+-- This will get a specific row of user expense data
+-- -------------------------------------------------
+
+DROP procedure IF EXISTS `spGetUserRowExpense`;
+DELIMITER $$
+CREATE PROCEDURE `spGetUserRowExpense` (IN p_UserId INT, IN p_RowId INT)
+BEGIN
+CREATE TEMPORARY TABLE Temp_GetExpenseId
+	SELECT *
+	FROM UserExpenses ex
+	WHERE ex.UserId = p_UserId
+	ORDER BY ex.UserExpensesId DESC;
+
+SET @row_number = 0;
+CREATE TEMPORARY TABLE Temp_GetRowId    
+	SELECT *, (@row_number:=@row_number + 1) AS RowNum
+	FROM Temp_GetExpenseId;
+    
+    SELECT *
+    FROM Temp_GetRowId
+    WHERE RowNum = p_RowId;
+    
+    
+    DROP TEMPORARY TABLE Temp_GetExpenseId;
+	DROP TEMPORARY TABLE Temp_GetRowId;
+END$$
+DELIMITER ;

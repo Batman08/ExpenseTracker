@@ -1,6 +1,7 @@
         <?php
         session_start();
         echo $_SESSION["username"];
+        echo "<br/>";
         echo $_SESSION["userId"];
         $allUserExpenses = GetAllUserExpenses($_SESSION['userId']);
         ?>
@@ -30,12 +31,12 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Add Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-plus-circle"></i> Add Expense</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-plus-circle fa-fw"></i> Add Expense</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -80,8 +81,67 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle"></i> Close</button>
-                        <button type="button" onclick="processAddExpenseForm()" class="btn btn-primary btn-block" data-bs-dismiss="modal"><i class="fas fa-plus-circle"></i> Add</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle fa-fw"></i> Close</button>
+                        <button type="submit" onclick="processAddExpenseForm()" class="btn btn-primary btn-block" data-bs-dismiss="modal"><i class="fas fa-plus-circle fa-fw"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-edit"></i> Edit Expense</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formEditExpense" method="POST">
+
+                            <!-- Date -->
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-day fa-fw"></i></span>
+                                    <input type="date" class="form-control" id="txtEditDate" name="txtEditDate" required>
+                                </div>
+                            </div>
+
+                            <!--  Item -->
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-tag fa-fw"></i></span>
+                                    <input type="text" class="form-control" id="txtEditItem" name="txtEditItem" placeholder="Enter Item" maxlength="256" required>
+                                </div>
+                            </div>
+
+                            <!--  Cost -->
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-pound-sign fa-fw"></i></span>
+                                    <input type="number" step=0.01 class="form-control" id="txtEditCost" name="txtEditCost" placeholder="Enter Cost of Item" required>
+                                </div>
+                            </div>
+
+                            <!-- Payment Type -->
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-money-check fa-fw"></i></span>
+                                    <select id="ddlEditPaymentType" name="ddlEditPaymentType" class="form-select" aria-label="select user" required>
+                                        <option selected disabled>-- Select Payment Type --</option>
+                                        <option value="CreditCard">Credit Card</option>
+                                        <option value="DebitCard">Debit Card</option>
+                                        <option value="Cash">Cash</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle fa-fw"></i> Close</button>
+                        <button type="button" onclick="processAddExpenseForm()" class="btn btn-primary btn-block" data-bs-dismiss="modal"><i class="fas fa-sync-alt fa-fw"></i> Update</button>
+                        <input type="hidden" id="hiddenData">
                     </div>
                 </div>
             </div>
