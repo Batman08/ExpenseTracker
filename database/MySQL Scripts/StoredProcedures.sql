@@ -40,7 +40,7 @@ DELIMITER ;
 
 DROP procedure IF EXISTS `spSaveUserExpense`;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spSaveUserExpense` (p_UserId INT, p_Name VARCHAR(256), p_PaymentType VARCHAR(256), p_Date DATE, p_Amount DOUBLE)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spSaveUserExpense` (IN p_UserId INT, IN p_Name VARCHAR(256), IN p_PaymentType VARCHAR(256), IN p_Date DATE, IN p_Amount DOUBLE)
 BEGIN
 	INSERT INTO UserExpenses(UserId, Name, PaymentType, Date, Amount)
 	VALUES(p_UserId, p_Name, p_PaymentType, p_Date, p_Amount);
@@ -54,7 +54,7 @@ DELIMITER ;
 
 DROP procedure IF EXISTS `spGetUserId`;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spGetUserId` (p_Username VARCHAR(30))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spGetUserId` (IN p_Username VARCHAR(30))
 BEGIN
 	SELECT UserId FROM Users u WHERE u.Username = p_Username;
 END$$
@@ -122,7 +122,7 @@ DELIMITER ;
 
 DROP procedure IF EXISTS `spGetUserRowExpense`;
 DELIMITER $$
-CREATE PROCEDURE `spGetUserRowExpense` (IN p_UserId INT, IN p_RowId INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spGetUserRowExpense` (IN p_UserId INT, IN p_RowId INT)
 BEGIN
 CREATE TEMPORARY TABLE Temp_GetExpenseId
 	SELECT *
@@ -142,5 +142,35 @@ CREATE TEMPORARY TABLE Temp_GetRowId
     
     DROP TEMPORARY TABLE Temp_GetExpenseId;
 	DROP TEMPORARY TABLE Temp_GetRowId;
+END$$
+DELIMITER ;
+
+
+-- [spUpdateUserExpense]
+-- This will update a specific user expense
+-- ----------------------------------------
+
+DROP procedure IF EXISTS `spUpdateUserExpense`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateUserExpense` (IN p_UserId INT, IN p_UpdateId INT, IN p_Name VARCHAR(256), IN p_PaymentType VARCHAR(256), IN p_Date DATE, IN p_Amount DOUBLE)
+BEGIN
+	CREATE TEMPORARY TABLE Temp_GetUpdateExpenseId
+		SELECT *
+		FROM UserExpenses ex
+		WHERE ex.UserId = p_UserId
+		ORDER BY ex.UserExpensesId DESC;
+	
+	SET @row_number = 0;
+	CREATE TEMPORARY TABLE Temp_GetUpdateRowId    
+		SELECT *, (@row_number:=@row_number + 1) AS RowNum
+		FROM Temp_GetUpdateExpenseId;
+		
+		UPDATE UserExpenses ex
+        INNER JOIN Temp_GetUpdateRowId tr on ex.UserExpensesId = tr.UserExpensesId
+		SET ex.Name = p_Name, ex.PaymentType = p_PaymentType, ex.Date = p_Date, ex.Amount = p_Amount
+		WHERE tr.RowNum = p_UpdateId;
+		
+		DROP TEMPORARY TABLE Temp_GetUpdateExpenseId;
+		DROP TEMPORARY TABLE Temp_GetUpdateRowId;
 END$$
 DELIMITER ;

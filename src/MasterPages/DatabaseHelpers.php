@@ -78,3 +78,9 @@ function GetUserRowExpense($p_UserId, $p_RowId)
 {
     return CallDatabase("call spGetUserRowExpense('$p_UserId', '$p_RowId')", true);
 }
+
+
+function UpdateUserExpense($p_UserId, $p_UpdateId, $p_Item, $p_PaymentType, $p_Date, $p_Cost)
+{
+    return CallDatabase("call spUpdateUserExpense('$p_UserId', '$p_UpdateId', '$p_Item', '$p_PaymentType', '$p_Date', '$p_Cost')", false);
+}

@@ -54,26 +54,45 @@
         });
     }
 
-    function editUserExpense(updateId) {
-        $('#hiddenData').val(updateId);
+    function editUserExpense(rowId) {
+        $('#hiddenData').val(rowId);
 
-        var updateData = {
-            UpdateData: updateId
+        var editeData = {
+            EditeData: rowId
         };
 
         $.post(
             "TrackExpenses_Edit.php",
-            updateData,
+            editeData,
             function(data, status) {
-                var userId = JSON.parse(data);
-                $('#txtEditDate').val(userId.Date);
-                $('#txtEditItem').val(userId.Name);
-                $('#txtEditCost').val(userId.Amount);
-                $('#ddlEditPaymentType').val(userId.PaymentType);
+                var userExpenseId = JSON.parse(data);
+                $('#txtEditDate').val(userExpenseId.Date);
+                $('#txtEditItem').val(userExpenseId.Name);
+                $('#txtEditCost').val(userExpenseId.Amount);
+                $('#ddlEditPaymentType').val(userExpenseId.PaymentType);
                 console.log(status);
             }
         );
 
         $('#editStaticBackdrop').modal("show");
+    }
+
+    function updateEditedUserExpense(){
+        var updateData = {
+            Date: $("#txtEditDate").val(),
+            Item: $("#txtEditItem").val(),
+            Cost: $("#txtEditCost").val(),
+            PaymentType: $("#ddlEditPaymentType").val(),
+            HiddenData: $("#hiddenData").val()
+        };
+
+        $.post(
+            "TrackExpenses_Update.php",
+            updateData,
+            function(data, status){
+                console.log(status);
+                displayData();
+            }
+        );
     }
 </script>

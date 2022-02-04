@@ -139,8 +139,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle fa-fw"></i> Close</button>
-                        <button type="button" onclick="processAddExpenseForm()" class="btn btn-primary btn-block" data-bs-dismiss="modal"><i class="fas fa-sync-alt fa-fw"></i> Update</button>
+                        <button type="button" onclick="processAddExpenseForm()" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle fa-fw"></i> Close</button>
+                        <button type="button" onclick="updateEditedUserExpense()" class="btn btn-primary btn-block" data-bs-dismiss="modal"><i class="fas fa-sync-alt fa-fw"></i> Update</button>
                         <input type="hidden" id="hiddenData">
                     </div>
                 </div>
