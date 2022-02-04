@@ -72,8 +72,8 @@
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-money-check fa-fw"></i></span>
                                     <select id="ddlPaymentType" name="ddlPaymentType" class="form-select" aria-label="select user" required>
                                         <option selected disabled>-- Select Payment Type --</option>
-                                        <option value="CreditCard">Credit Card</option>
-                                        <option value="DebitCard">Debit Card</option>
+                                        <option value="Credit Card">Credit Card</option>
+                                        <option value="Debit Card">Debit Card</option>
                                         <option value="Cash">Cash</option>
                                     </select>
                                 </div>
@@ -130,8 +130,8 @@
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-money-check fa-fw"></i></span>
                                     <select id="ddlEditPaymentType" name="ddlEditPaymentType" class="form-select" aria-label="select user" required>
                                         <option selected disabled>-- Select Payment Type --</option>
-                                        <option value="CreditCard">Credit Card</option>
-                                        <option value="DebitCard">Debit Card</option>
+                                        <option value="Credit Card">Credit Card</option>
+                                        <option value="Debit Card">Debit Card</option>
                                         <option value="Cash">Cash</option>
                                     </select>
                                 </div>
