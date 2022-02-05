@@ -6,7 +6,7 @@
         $allUserExpenses = GetAllUserExpenses($_SESSION['userId']);
         ?>
 
-        <!-- Button trigger modal -->
+        <!-- Button trigger Add modal -->
         <div class="form-group" style="margin-top: 20px;">
             <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-plus-circle"></i> Add</button>
         </div>
@@ -16,7 +16,14 @@
         <div class="row">
             <div>
                 <table class="table table-striped table-hover">
-                    <colgroup></colgroup>
+                    <colgroup>
+                        <col style="width: 5%;">
+                        <col style="width: 15%;">
+                        <col style="width: 20%;">
+                        <col style="width: 15%;">
+                        <col style="width: 20%;">
+                        <col style="width: 10%;">
+                    </colgroup>
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -24,6 +31,7 @@
                             <th scope="col">Item</th>
                             <th scope="col">Cost</th>
                             <th scope="col">Payment Type</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody id="tableTrackExpense"></tbody>
