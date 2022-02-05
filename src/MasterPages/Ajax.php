@@ -1,17 +1,25 @@
 <script>
+    // var path = window.location.pathname;
+    // var page = path.split("/").pop();
+
+    // if (page == "TrackExpenses.php") {
+    //     window.history.forward();
+    // }
+    // if (page == "Login.php") {
+    //     // alert("login page");
+    // } else if (page == "TrackExpenses.php") {
+    //     window.history.forward(); 
+    //     // alert("track expenses page");
+    // }
+
     window.onload = function() {
         displayData();
     }
 
     function displayData() {
-        var displayData = {
-            DisplayData: "true"
-        };
-
         $.ajax({
             type: 'POST',
-            url: "TrackExpenses_Display.php",
-            data: displayData,
+            url: "../UserExpenses/TrackExpenses_Display.php",
             success: function(data, status) {
                 $('#tableTrackExpense').html(data);
             }
@@ -77,7 +85,7 @@
         $('#editStaticBackdrop').modal("show");
     }
 
-    function updateEditedUserExpense(){
+    function updateEditedUserExpense() {
         var updateData = {
             Date: $("#txtEditDate").val(),
             Item: $("#txtEditItem").val(),
@@ -89,10 +97,26 @@
         $.post(
             "TrackExpenses_Update.php",
             updateData,
-            function(data, status){
+            function(data, status) {
                 console.log(status);
                 displayData();
             }
         );
+    }
+
+    function logoutUser() {
+        $.ajax({
+            type: 'POST',
+            url: '../Login/Logout.php',
+            error: function(xhr, statusText, err, data) {
+                console.log(data);
+                // alert("logout failed " + xhr.status);
+            },
+
+            success: function() {
+                // alert("Logout successful");
+                window.location.href = "/Login/Login.php";
+            }
+        });
     }
 </script>

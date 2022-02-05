@@ -1,8 +1,11 @@
-<?php 
-    session_start();
-    // if ($_SESSION["medicalPersonId"] == null && basename($_SERVER['PHP_SELF']) != "Login.php") {
-    //     header('Location: ../Login/Login.php');
-    // }
+<?php
+session_start();
+
+if ($_SESSION["userId"] == null ) {
+    if (basename($_SERVER['PHP_SELF']) != "SignUp.php" && basename($_SERVER['PHP_SELF']) != "Login.php") {
+        header('Location: ../Login/Login.php');
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +28,12 @@
 
 <body>
     <div class="container">
+        <?php if (basename($_SERVER['PHP_SELF']) != "Login.php") { ?>
+            <div style="float: right; margin-top: 10px;">
+                <button type="button" onclick="logoutUser()" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Log Out</button>
+            </div>
+        <?php } ?>
+
         <h1 style="margin-bottom: 40px;"><?php echo $page_header ?></h1>
 
         <?php include($page_content); ?>
