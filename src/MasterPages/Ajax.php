@@ -1,16 +1,7 @@
 <script>
-    // var path = window.location.pathname;
-    // var page = path.split("/").pop();
-
-    // if (page == "TrackExpenses.php") {
-    //     window.history.forward();
-    // }
-    // if (page == "Login.php") {
-    //     // alert("login page");
-    // } else if (page == "TrackExpenses.php") {
-    //     window.history.forward(); 
-    //     // alert("track expenses page");
-    // }
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
 
     window.onload = function() {
         displayData();
@@ -26,7 +17,9 @@
         });
     }
 
-    function processAddExpenseForm() {
+    function processAddExpenseForm(e) {
+        if (e.preventDefault) e.preventDefault();
+
         var dataToServer = {
             Date: $("#txtDate").val(),
             Item: $("#txtItem").val(),
@@ -39,8 +32,9 @@
             url: 'TrackExpenses_Save.php',
             data: dataToServer,
             success: function(data, status) {
-                displayData();
+                $('#addStaticBackdrop').modal('hide');
                 document.getElementById("formAddExpense").reset();
+                displayData();
                 console.log(status);
             }
         });
@@ -85,7 +79,10 @@
         $('#editStaticBackdrop').modal("show");
     }
 
-    function updateEditedUserExpense() {
+    function updateEditedUserExpense(e) {
+        if (e.preventDefault) e.preventDefault();
+
+
         var updateData = {
             Date: $("#txtEditDate").val(),
             Item: $("#txtEditItem").val(),
@@ -99,6 +96,7 @@
             updateData,
             function(data, status) {
                 console.log(status);
+                $('#editStaticBackdrop').modal('hide');
                 displayData();
             }
         );
@@ -119,4 +117,7 @@
             }
         });
     }
+
+    document.getElementById('formAddExpense').addEventListener("submit", processAddExpenseForm);
+    document.getElementById('formEditExpense').addEventListener("submit", updateEditedUserExpense);
 </script>

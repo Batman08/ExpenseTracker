@@ -7,8 +7,9 @@ $p_PaymentType = $_POST["PaymentType"];
 $p_Date = $_POST["Date"];
 $p_Cost = $_POST["Cost"];
 
+include("../MasterPages/DatabaseHelpers.php");
 
-    include("../MasterPages/DatabaseHelpers.php");
-
-     SaveUserExpense($p_UserId, $p_Item, $p_PaymentType, $p_Date, $p_Cost);
+if($p_UserId != null && $p_Item != null && $p_PaymentType != null && $p_Date != null && $p_Cost != null){
+    SaveUserExpense($p_UserId, $p_Item, $p_PaymentType, $p_Date, $p_Cost);
+}
 ?>

@@ -8,7 +8,7 @@
 
         <!-- Button trigger Add modal -->
         <div class="form-group" style="margin-top: 20px;">
-            <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-plus-circle"></i> Add</button>
+            <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#addStaticBackdrop"><i class="fas fa-plus-circle"></i> Add</button>
         </div>
 
         <br />
@@ -40,7 +40,7 @@
         </div>
 
         <!-- Add Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="addStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -86,11 +86,14 @@
                                     </select>
                                 </div>
                             </div>
+                            <hr />
+                            <div style="float: right;">
+                                <span style="padding-right: 5px;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle fa-fw"></i> Close</button>
+                                </span>
+                                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-plus-circle fa-fw"></i> Add</button>
+                            </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle fa-fw"></i> Close</button>
-                        <button type="submit" onclick="processAddExpenseForm()" class="btn btn-primary btn-block" data-bs-dismiss="modal"><i class="fas fa-plus-circle fa-fw"></i> Add</button>
                     </div>
                 </div>
             </div>
@@ -144,12 +147,15 @@
                                     </select>
                                 </div>
                             </div>
+                            <hr />
+                            <div style="float: right;">
+                                <span style="padding-right: 5px;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle fa-fw"></i> Close</button>
+                                </span>
+                                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sync-alt fa-fw"></i> Update</button>
+                            </div>
+                            <input type="hidden" id="hiddenData">
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" onclick="processAddExpenseForm()" class="btn btn-secondary" data-bs-dismiss="modal"><i class="far fa-times-circle fa-fw"></i> Close</button>
-                        <button type="button" onclick="updateEditedUserExpense()" class="btn btn-primary btn-block" data-bs-dismiss="modal"><i class="fas fa-sync-alt fa-fw"></i> Update</button>
-                        <input type="hidden" id="hiddenData">
                     </div>
                 </div>
             </div>
