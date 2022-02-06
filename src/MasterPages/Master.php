@@ -28,7 +28,7 @@ if ($_SESSION["userId"] == null ) {
 
 <body>
     <div class="container">
-        <?php if (basename($_SERVER['PHP_SELF']) != "Login.php") { ?>
+        <?php if (basename($_SERVER['PHP_SELF']) != "Login.php" && basename($_SERVER['PHP_SELF']) != "SignUp.php") { ?>
             <div style="float: right; margin-top: 10px;">
                 <button type="button" onclick="logoutUser()" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Log Out</button>
             </div>
