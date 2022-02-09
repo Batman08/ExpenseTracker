@@ -42,12 +42,6 @@
                 } else {
                     alert("Ooops, something has gone wrong, please login again");
                 }
-
-                // console.log(userLogin);
-                // console.log(userLogin.Username);
-                // console.log(userLogin.Password);
-                // console.log(loginDataToServer.Username);
-                // console.log(loginDataToServer.Pasword);
             }
         });
     }
