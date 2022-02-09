@@ -3,19 +3,13 @@
 
     include("../MasterPages/DatabaseHelpers.php");
 
-    $username =  $_POST["txtUsername"];
-    $password =  $_POST["txtPassword"];
+    $username =  $_POST["Username"];
+    $password =  $_POST["Password"];
     $loginDetails = GetUserLoginDetails($username);
-
     
-
-    if ($username == $loginDetails["Username"] && $password ==  $loginDetails["Password"]){
+    if(isset($loginDetails['Username'])){
         $_SESSION["username"] = $username;
         $_SESSION["userId"] = GetUserId($username);
-
-        header("Location: ../UserExpenses/TrackExpenses.php");
+        
+        echo json_encode($loginDetails);
     }
-    else {
-        header("Location: ../Login/Login.php");
-    }
-?>

@@ -3,9 +3,60 @@
         window.history.replaceState(null, null, window.location.href);
     }
 
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
     window.onload = function() {
-        displayData();
+        if (page == "TrackExpenses.php") {
+            displayData();
+        }
     }
+
+    function processLoginForm(e) {
+        if (e.preventDefault) e.preventDefault();
+
+        var loginDataToServer = {
+            Username: $("#txtUsername").val(),
+            Pasword: $("#txtPassword").val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: 'Login_Authenticate.php',
+            data: loginDataToServer,
+            success: function(data, status) {
+
+                var userLogin = null;
+
+                try {
+                    userLogin = JSON.parse(data);
+                } catch (error) {
+                    console.log("Username does not exist in system: " + error);
+                }
+
+                document.getElementById("formLogin").reset();
+                console.log(status);
+
+                //change alerts to show error message on screen
+                if (userLogin !== null && loginDataToServer.Username === userLogin.Username && loginDataToServer.Pasword === userLogin.Password) {
+                    window.location.href = "../UserExpenses/TrackExpenses.php";
+                } else {
+                    alert("Ooops, something has gone wrong, please login again");
+                }
+
+                // console.log(userLogin);
+                // console.log(userLogin.Username);
+                // console.log(userLogin.Password);
+                // console.log(loginDataToServer.Username);
+                // console.log(loginDataToServer.Pasword);
+            }
+        });
+    }
+
+    function displayError(resultHtml) {
+        var divContactUsResult = document.getElementById('divContactUsResult');
+        divContactUsResult.innerHTML = resultHtml;
+    }
+
 
     function displayData() {
         $.ajax({
@@ -118,6 +169,11 @@
         });
     }
 
-    document.getElementById('formAddExpense').addEventListener("submit", processAddExpenseForm);
-    document.getElementById('formEditExpense').addEventListener("submit", updateEditedUserExpense);
+
+    if (page == "Login.php") {
+        document.getElementById('formLogin').addEventListener("submit", processLoginForm);
+    } else if (page == "TrackExpenses.php") {
+        document.getElementById('formAddExpense').addEventListener("submit", processAddExpenseForm);
+        document.getElementById('formEditExpense').addEventListener("submit", updateEditedUserExpense);
+    }
 </script>
