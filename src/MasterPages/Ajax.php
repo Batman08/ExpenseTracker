@@ -36,19 +36,19 @@
                 document.getElementById("formLogin").reset();
                 console.log(status);
 
-                //change alerts to show error message on screen
                 if (userLogin !== null && loginDataToServer.Username === userLogin.Username && loginDataToServer.Pasword === userLogin.Password) {
                     window.location.href = "../UserExpenses/TrackExpenses.php";
                 } else {
-                    alert("Ooops, something has gone wrong, please login again");
+                    resultHtml = '<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> Incorrect username and/or password, please try again.</div>';
+                    displayLoginErrorMsg(resultHtml)
                 }
             }
         });
     }
 
-    function displayError(resultHtml) {
-        var divContactUsResult = document.getElementById('divContactUsResult');
-        divContactUsResult.innerHTML = resultHtml;
+    function displayLoginErrorMsg(resultHtml) {
+        var divLoginMessage = document.getElementById('divLoginMessage');
+        divLoginMessage.innerHTML = resultHtml;
     }
 
 
