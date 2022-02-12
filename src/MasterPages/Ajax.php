@@ -79,9 +79,8 @@
 
                 if (userSignUp === "success") {
                     resultHtml = '<div class="alert alert-success" role="alert"><i class="fas fa-check"></i> Successfully created account.</div>';
-                    // fas fa-check fa-lg
                     displaySignUpMessage(resultHtml)
-                    // window.location.href = "../UserExpenses/TrackExpenses.php";
+                    countDown();
                 } else if (userSignUp === "failed") {
                     resultHtml = '<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> Account with this username already exists, pleast try a different one.</div>';
                     displaySignUpMessage(resultHtml)
@@ -93,6 +92,18 @@
     function displaySignUpMessage(resultHtml) {
         var divSignUpMessage = document.getElementById('divSignUpMessage');
         divSignUpMessage.innerHTML = resultHtml;
+    }
+
+    var count = 4;
+    function countDown() {
+        var timer = document.getElementById("divRedirectMessage");
+        if (count > 0) {
+            count--;
+            timer.innerHTML = "This page will redirect in " + count + " seconds.";
+            setTimeout("countDown()", 1000);
+        } else {
+            window.location.href = "../Login/Login.php";
+        }
     }
 
     function displayData() {

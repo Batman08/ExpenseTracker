@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-6 mx-auto">
         <div id="divSignUpMessage"></div>
+        <div id="divRedirectMessage"></div>
         <div class="card">
             <div class="card-header">
                 <h3><i class="fas fa-user-plus"></i> Sign Up</h3>
