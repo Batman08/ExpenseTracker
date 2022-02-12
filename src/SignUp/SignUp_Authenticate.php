@@ -2,19 +2,21 @@
     session_start();
     include("../MasterPages/DatabaseHelpers.php");
 
-    $p_Username =  $_POST["txtSignUpUsername"];
-    $p_Password =  $_POST["txtSignUpPassword"];
+    $p_Username =  $_POST["SignUpUsername"];
+    $p_Password =  $_POST["SignUpPassword"];
     $loginDetails = GetUserLoginDetails($p_Username);
 
+    $submissionValue = "";
 
     if ($p_Username != $loginDetails["Username"]){
-        SaveUserLoginDetails($p_Username, $p_Password);
+        // show success message
         $submissionValue = "success";
+        SaveUserLoginDetails($p_Username, $p_Password);
     }
-    else {
+    else if($p_Username == $loginDetails["Username"]){
         // show error message
         $submissionValue = "failed";
     }
 
-    header("Location: /SignUp/SignUp.php?SavedDetails=" . $submissionValue);
+    echo json_encode($submissionValue);
 ?>

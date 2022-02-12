@@ -51,6 +51,49 @@
         divLoginMessage.innerHTML = resultHtml;
     }
 
+    function processSignUpForm(e) {
+        if (e.preventDefault) e.preventDefault();
+
+        var signUpDataToServer = {
+            SignUpUsername: $("#txtSignUpUsername").val(),
+            SignUpPassword: $("#txtSignUpPassword").val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: 'SignUp_Authenticate.php',
+            data: signUpDataToServer,
+            success: function(data, status) {
+
+                var userSignUp = null;
+
+                try {
+                    userSignUp = JSON.parse(data);
+                } catch (error) {
+                    console.log("Something went wrong with sign up: " + error);
+                }
+
+                document.getElementById("formSignUp").reset();
+                console.log(status);
+                console.log(userSignUp);
+
+                if (userSignUp === "success") {
+                    resultHtml = '<div class="alert alert-success" role="alert"><i class="fas fa-check"></i> Successfully created account.</div>';
+                    // fas fa-check fa-lg
+                    displaySignUpMessage(resultHtml)
+                    // window.location.href = "../UserExpenses/TrackExpenses.php";
+                } else if (userSignUp === "failed") {
+                    resultHtml = '<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> Account with this username already exists, pleast try a different one.</div>';
+                    displaySignUpMessage(resultHtml)
+                }
+            }
+        });
+    }
+
+    function displaySignUpMessage(resultHtml) {
+        var divSignUpMessage = document.getElementById('divSignUpMessage');
+        divSignUpMessage.innerHTML = resultHtml;
+    }
 
     function displayData() {
         $.ajax({
@@ -166,6 +209,8 @@
 
     if (page == "Login.php") {
         document.getElementById('formLogin').addEventListener("submit", processLoginForm);
+    } else if (page == "SignUp.php") {
+        document.getElementById('formSignUp').addEventListener("submit", processSignUpForm);
     } else if (page == "TrackExpenses.php") {
         document.getElementById('formAddExpense').addEventListener("submit", processAddExpenseForm);
         document.getElementById('formEditExpense').addEventListener("submit", updateEditedUserExpense);
