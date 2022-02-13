@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 <form id="formLogin" method='POST'>
-                <div class="form-group" style="margin-top: 10px;">
+                    <div class="form-group" style="margin-top: 10px;">
                         <label for="username">Username:</label>
                     </div>
                     <div class="input-group mb-3">

@@ -8,13 +8,20 @@
             </div>
             <div class="card-body">
                 <form id='formSignUp' method='POST'>
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top: 10px;">
                         <label for="username">Username:</label>
-                        <input type="text" class="form-control" id="txtSignUpUsername" name="txtSignUpUsername" placeholder="Enter Username" maxlength="30" autocomplete="false"  required>
                     </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                        <input type="text" class="form-control" id="txtSignUpUsername" name="txtSignUpUsername" placeholder="Enter Username" aria-describedby="basic-addon1" maxlength="30" required>
+                    </div>
+
                     <div class="form-group" style="margin-top: 10px;">
                         <label for="username">Password:</label>
-                        <input type="password" class="form-control" id="txtSignUpPassword" name="txtSignUpPassword" placeholder="Enter Password" maxlength="50" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="txtSignUpPassword" name="txtSignUpPassword" placeholder="Enter Password" aria-describedby="basic-addon1" maxlength="50" required>
                     </div>
                     <div class="form-group" style="margin-top: 20px;">
                         <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-lock"></i> Create Account</button>
