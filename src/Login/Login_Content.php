@@ -12,13 +12,20 @@
             </div>
             <div class="card-body">
                 <form id="formLogin" method='POST'>
-                    <div class="form-group">
+                <div class="form-group" style="margin-top: 10px;">
                         <label for="username">Username:</label>
-                        <input type="text" class="form-control" id="txtUsername" name="txtUsername" placeholder="Enter Username" maxlength="256" required>
                     </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                        <input type="text" class="form-control" id="txtUsername" name="txtUsername" placeholder="Enter Username" aria-describedby="basic-addon1" maxlength="256" required>
+                    </div>
+
                     <div class="form-group" style="margin-top: 10px;">
                         <label for="username">Password:</label>
-                        <input type="password" class="form-control" id="txtPassword" placeholder="Enter Password" maxlength="256" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="txtPassword" placeholder="Enter Password" maxlength="256" aria-describedby="basic-addon1" required>
                     </div>
                     <div class="form-group" style="margin-top: 20px;">
                         <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Login</button>
