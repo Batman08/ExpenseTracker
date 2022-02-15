@@ -79,11 +79,11 @@
 
                 if (userSignUp === "success") {
                     resultHtml = '<div class="alert alert-success" role="alert"><i class="fas fa-check"></i> Successfully created account.</div>';
-                    displaySignUpMessage(resultHtml)
+                    displaySignUpMessage(resultHtml);
                     countDown();
                 } else if (userSignUp === "failed") {
                     resultHtml = '<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> Account with this username already exists, pleast try a different one.</div>';
-                    displaySignUpMessage(resultHtml)
+                    displaySignUpMessage(resultHtml);
                 }
             }
         });
@@ -95,6 +95,7 @@
     }
 
     var count = 4;
+
     function countDown() {
         var timer = document.getElementById("divRedirectMessage");
         if (count > 0) {
@@ -207,21 +208,57 @@
             url: '../Login/Logout.php',
             error: function(xhr, statusText, err, data) {
                 console.log(data);
-                // alert("logout failed " + xhr.status);
             },
 
             success: function() {
-                // alert("Logout successful");
                 window.location.href = "/Login/Login.php";
             }
         });
     }
 
+    String.prototype.getWhitespaceCount = function() {
+        return this.split(" ").length - 1
+    }
+
+    function checkSignUpFields() {
+        var resultHtml = '';
+        var usernameFieldValue = $("#txtSignUpUsername").val();
+        var passwordFieldValue = $("#txtSignUpPassword").val();
+        var usernameBlankSpaces = usernameFieldValue.getWhitespaceCount();
+        var passwordBlankSpaces = passwordFieldValue.getWhitespaceCount();
+        var signUpBtn = document.getElementById("btnCreateAccount");
+
+        if (usernameBlankSpaces > 0 && passwordBlankSpaces > 0) {
+            signUpBtn.disabled = true;
+            resultHtml = '<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> Username and password should not contain any spaces</div>';
+        } else if (usernameBlankSpaces > 0) {
+            signUpBtn.disabled = true;
+            resultHtml = '<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> Username should not contain any spaces</div>';
+        } else if (passwordBlankSpaces > 0) {
+            signUpBtn.disabled = true;
+            resultHtml = '<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-triangle"></i> Password should not contain any spaces</div>';
+        } else {
+            signUpBtn.disabled = false;
+            resultHtml = '';
+        }
+        displaySignUpMessage(resultHtml);
+    }
+
+
+    var loginForm = document.getElementById('formLogin');
+    var signUpForm = document.getElementById('formSignUp');
+    var signUpUsernameField = document.getElementById('txtSignUpUsername');
+    var signUpPasswordField = document.getElementById('txtSignUpPassword');
 
     if (page == "Login.php") {
-        document.getElementById('formLogin').addEventListener("submit", processLoginForm);
+        loginForm.addEventListener("submit", processLoginForm);
     } else if (page == "SignUp.php") {
-        document.getElementById('formSignUp').addEventListener("submit", processSignUpForm);
+        signUpForm.addEventListener("submit", processSignUpForm);
+        signUpUsernameField.addEventListener("keypress", checkSignUpFields);
+        signUpPasswordField.addEventListener("keypress", checkSignUpFields);
+        signUpUsernameField.addEventListener("keyup", checkSignUpFields);
+        signUpPasswordField.addEventListener("keyup", checkSignUpFields);
+        //keyup
     } else if (page == "TrackExpenses.php") {
         document.getElementById('formAddExpense').addEventListener("submit", processAddExpenseForm);
         document.getElementById('formEditExpense').addEventListener("submit", updateEditedUserExpense);
