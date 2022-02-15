@@ -24,7 +24,7 @@
                         <input type="password" class="form-control" id="txtSignUpPassword" name="txtSignUpPassword" placeholder="Enter Password" aria-describedby="basic-addon1" maxlength="50" required>
                     </div>
                     <div class="form-group" style="margin-top: 20px;">
-                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-lock"></i> Create Account</button>
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-user-plus"></i> Create Account</button>
                     </div>
                     <div class="form-text">Already have an account? <a href="/Login/Login.php" class="link-primary">Log In</a></div>
                 </form>
