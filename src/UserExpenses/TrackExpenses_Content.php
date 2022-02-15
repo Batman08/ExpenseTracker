@@ -1,10 +1,13 @@
         <?php
         session_start();
-        echo $_SESSION["username"];
-        echo "<br/>";
-        echo $_SESSION["userId"];
-        $allUserExpenses = GetAllUserExpenses($_SESSION['userId']);
+        // $allUserExpenses = GetAllUserExpenses($_SESSION['userId']);
         ?>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h3><i class="fas fa-user"></i> <?= $_SESSION["username"] ?></h3>
+            </div>
+        </div>
 
         <!-- Button trigger Add modal -->
         <div class="form-group" style="margin-top: 20px;">
