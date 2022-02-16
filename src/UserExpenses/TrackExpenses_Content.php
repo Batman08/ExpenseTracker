@@ -9,12 +9,51 @@
             </div>
         </div>
 
-        <!-- Button trigger Add modal -->
-        <div class="form-group" style="margin-top: 20px;">
-            <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#addStaticBackdrop"><i class="fas fa-plus-circle"></i> Add</button>
+        <div class="row" style="padding-bottom: 15px;">
+            <div class="col-sm-12" style="text-align: right;">
+                <!-- Button trigger Add modal -->
+                <div class="form-group padBottom25" style="margin-top: 20px;">
+                    <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#addStaticBackdrop"><i class="fas fa-plus-circle"></i> Add Expense</button>
+                </div>
+            </div>
         </div>
 
-        <br />
+
+        <div class="row padBottom25">
+            <div class="col-4">Filter By :</div>
+            <div class="col-8">
+                <select id="ddlFilterTable" name="ddlFilterTable" class="form-select" aria-label="select user">
+                    <option selected">-- Select Filter --</option>
+                    <option value="Date">Date</option>
+                    <option value="Item">Item</option>
+                    <option value="Cost">Cost</option>
+                    <option value="PaymentType">Payment Type</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- <button type="button" id="btnProcessFilter" class="btn btn-secondary btn-block" style="margin-bottom: 25px;">Go</button> might need this to submit input in field -->
+
+        <!-- filter inputs -->
+        <div class="row">
+            <div class="form-group">
+                <input type="text" class="form-control" style="margin-bottom: 25px;" id="txtItemFilter" name="txtItemFilter" placeholder="Enter item filter" maxlength="256" required>
+            </div>
+            <div class="form-group">
+                <input type="date" class="form-control" style="margin-bottom: 25px;" id="dateFilter" name="txtItemFilter" required>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" style="margin-bottom: 25px;" id="txtCostFilter" name="txtCostFilter" placeholder="Enter cost filter" maxlength="256" required>
+            </div>
+            <div class="form-group">
+                <select id="ddlPaymentFilter" name="ddlPaymentFilter" class="form-select" style="margin-bottom: 25px;" required>
+                    <option selected disabled>-- Select Payment Type --</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Debit Card">Debit Card</option>
+                    <option value="Cash">Cash</option>
+                </select>
+            </div>
+        </div>
 
         <div class="row">
             <div>

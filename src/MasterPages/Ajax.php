@@ -33,7 +33,7 @@
                     console.log("Username does not exist in system: " + error);
                 }
 
-                document.getElementById("formLogin").reset();
+                loginForm.reset();
                 console.log(status);
 
                 if (userLogin !== null && loginDataToServer.Username === userLogin.Username && loginDataToServer.Pasword === userLogin.Password) {
@@ -47,7 +47,7 @@
     }
 
     function displayLoginErrorMsg(resultHtml) {
-        var divLoginMessage = document.getElementById('divLoginMessage');
+        var divLoginMessage = document.querySelector('#divLoginMessage');
         divLoginMessage.innerHTML = resultHtml;
     }
 
@@ -73,7 +73,7 @@
                     console.log("Something went wrong with sign up: " + error);
                 }
 
-                document.getElementById("formSignUp").reset();
+                signUpForm.reset();
                 console.log(status);
                 console.log(userSignUp);
 
@@ -90,14 +90,14 @@
     }
 
     function displaySignUpMessage(resultHtml) {
-        var divSignUpMessage = document.getElementById('divSignUpMessage');
+        var divSignUpMessage = document.querySelector('#divSignUpMessage');
         divSignUpMessage.innerHTML = resultHtml;
     }
 
     var count = 4;
 
     function countDown() {
-        var timer = document.getElementById("divRedirectMessage");
+        var timer = document.querySelector("#divRedirectMessage");
         if (count > 0) {
             count--;
             timer.innerHTML = "This page will redirect in " + count + " seconds.";
@@ -133,7 +133,7 @@
             data: dataToServer,
             success: function(data, status) {
                 $('#addStaticBackdrop').modal('hide');
-                document.getElementById("formAddExpense").reset();
+                addExpenseForm.reset();
                 displayData();
                 console.log(status);
             }
@@ -226,7 +226,7 @@
         var passwordFieldValue = $("#txtSignUpPassword").val();
         var usernameBlankSpaces = usernameFieldValue.getWhitespaceCount();
         var passwordBlankSpaces = passwordFieldValue.getWhitespaceCount();
-        var signUpBtn = document.getElementById("btnCreateAccount");
+        var signUpBtn = document.querySelector("#btnCreateAccount");
 
         if (usernameBlankSpaces > 0 && passwordBlankSpaces > 0) {
             signUpBtn.disabled = true;
@@ -244,11 +244,49 @@
         displaySignUpMessage(resultHtml);
     }
 
+    var dateFilter = document.querySelector('#dateFilter');
+    var itemFilter = document.querySelector('#txtItemFilter');
+    var costFilter = document.querySelector('#txtCostFilter');
+    var paymentFilter = document.querySelector('#ddlPaymentFilter');
 
-    var loginForm = document.getElementById('formLogin');
-    var signUpForm = document.getElementById('formSignUp');
-    var signUpUsernameField = document.getElementById('txtSignUpUsername');
-    var signUpPasswordField = document.getElementById('txtSignUpPassword');
+    function filtersVisibility(dateVis, itemVis, costVis, paymentVis) {
+        dateFilter.style.display = dateVis;
+        itemFilter.style.display = itemVis;
+        costFilter.style.display = costVis;
+        paymentFilter.style.display = paymentVis;
+    }
+
+    function disableFilterInputsOnLoad() {
+        filtersVisibility('none', 'none', 'none', 'none')
+    }
+
+    function checkFilterOption() {
+        var ddlFilterTable = document.querySelector('#ddlFilterTable');
+        var selectedValue = ddlFilterTable.value;
+        
+        // alert(selectedValue);
+
+        if (selectedValue === "Date") {
+            filtersVisibility("block", "none", "none", "none");
+        } else if (selectedValue === "Item") {
+            filtersVisibility("none", "block", "none", "none");
+        } else if (selectedValue === "Cost") {
+            filtersVisibility("none", "none", "block", "none");
+        } else if (selectedValue === "PaymentType") {
+            filtersVisibility("none", "none", "none", "block");
+        } else {
+            filtersVisibility("none", "none", "none", "none");
+        }
+    }
+
+
+    var loginForm = document.querySelector('#formLogin');
+    var signUpForm = document.querySelector('#formSignUp');
+    var signUpUsernameField = document.querySelector('#txtSignUpUsername');
+    var signUpPasswordField = document.querySelector('#txtSignUpPassword');
+    var addExpenseForm = document.querySelector('#formAddExpense');
+    var editExpenseForm = document.querySelector('#formEditExpense');
+    var processFilterBtn = document.querySelector('#btnProcessFilter');
 
     if (page == "Login.php") {
         loginForm.addEventListener("submit", processLoginForm);
@@ -258,9 +296,11 @@
         signUpPasswordField.addEventListener("keypress", checkSignUpFields);
         signUpUsernameField.addEventListener("keyup", checkSignUpFields);
         signUpPasswordField.addEventListener("keyup", checkSignUpFields);
-        //keyup
     } else if (page == "TrackExpenses.php") {
-        document.getElementById('formAddExpense').addEventListener("submit", processAddExpenseForm);
-        document.getElementById('formEditExpense').addEventListener("submit", updateEditedUserExpense);
+        disableFilterInputsOnLoad();
+        addExpenseForm.addEventListener("submit", processAddExpenseForm);
+        editExpenseForm.addEventListener("submit", updateEditedUserExpense);
+        //processFilterBtn.addEventListener("click", checkFilterOption);
+        document.querySelector('#ddlFilterTable').addEventListener("click", checkFilterOption);
     }
 </script>
