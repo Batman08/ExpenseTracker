@@ -263,7 +263,7 @@
     function checkFilterOption() {
         var ddlFilterTable = document.querySelector('#ddlFilterTable');
         var selectedValue = ddlFilterTable.value;
-        
+
         // alert(selectedValue);
 
         if (selectedValue === "Date") {
@@ -279,14 +279,44 @@
         }
     }
 
+    function itemTableFilter(){
+        var itemFilterData = {
+            ItemFilter: itemFilter.value,
+        };
 
+        // alert(itemFilterData.ItemFilter);
+
+        $.ajax({
+            type: 'POST',
+            url: '../UserExpenses/TableFilters/TrackExpenses_ItemFilter.php',
+            data: itemFilterData,
+            success: function(data, status) {
+                console.log(status);
+                $('#tableTrackExpense').html(data);
+                console.log(status);
+            },
+            error: function(status){
+                console.log(status);
+            }
+
+        });
+    }
+
+
+    //login
     var loginForm = document.querySelector('#formLogin');
+
+    //sign up
     var signUpForm = document.querySelector('#formSignUp');
     var signUpUsernameField = document.querySelector('#txtSignUpUsername');
     var signUpPasswordField = document.querySelector('#txtSignUpPassword');
+
+    //track expenses
     var addExpenseForm = document.querySelector('#formAddExpense');
     var editExpenseForm = document.querySelector('#formEditExpense');
     var processFilterBtn = document.querySelector('#btnProcessFilter');
+    var filterTableDDL = document.querySelector('#ddlFilterTable')
+
 
     if (page == "Login.php") {
         loginForm.addEventListener("submit", processLoginForm);
@@ -301,6 +331,7 @@
         addExpenseForm.addEventListener("submit", processAddExpenseForm);
         editExpenseForm.addEventListener("submit", updateEditedUserExpense);
         //processFilterBtn.addEventListener("click", checkFilterOption);
-        document.querySelector('#ddlFilterTable').addEventListener("click", checkFilterOption);
+        filterTableDDL.addEventListener("click", checkFilterOption);
+        itemFilter.addEventListener("keyup", itemTableFilter);
     }
 </script>
