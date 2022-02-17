@@ -174,3 +174,19 @@ BEGIN
 		DROP TEMPORARY TABLE Temp_GetUpdateRowId;
 END$$
 DELIMITER ;
+
+
+-- [spGetTotalUserExpenses]
+-- This will get the total number of user expenses
+-- -----------------------------------------------
+
+DROP procedure IF EXISTS `spGetTotalUserExpenses`;
+DELIMITER $$
+CREATE PROCEDURE `spGetTotalUserExpenses` (IN p_UserId INT)
+BEGIN
+	SELECT COUNT(*) AS TotalUserExpenses
+	FROM UserExpenses ex
+	INNER JOIN Users u on ex.UserId = u.UserId
+	WHERE u.UserId = p_UserId;
+END$$
+DELIMITER ;
