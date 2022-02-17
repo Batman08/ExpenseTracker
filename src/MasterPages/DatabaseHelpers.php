@@ -90,3 +90,8 @@ function GetTotalUserExpenses($p_UserId)
     $total = CallDatabase("call spGetTotalUserExpenses('$p_UserId')", true);
     return $total[0]['TotalUserExpenses'];
 }
+
+function GetFilteredItemExpenses($p_UserId, $p_NameFilter)
+{
+    return CallDatabase("call spGetFilteredItemExpenses('$p_UserId', '$p_NameFilter')", true);
+}

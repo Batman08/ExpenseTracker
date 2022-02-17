@@ -190,3 +190,28 @@ BEGIN
 	WHERE u.UserId = p_UserId;
 END$$
 DELIMITER ;
+
+
+-- [spGetFilteredItemExpenses]
+-- This will filter the expenses by item
+-- -------------------------------------------
+
+DROP procedure IF EXISTS `spGetFilteredItemExpenses`;
+DELIMITER $$
+CREATE PROCEDURE `spGetFilteredItemExpenses` (IN p_UserId INT, IN p_NameFilter VARCHAR(256))
+BEGIN
+	CREATE TEMPORARY TABLE Temp_ExpensesFilteredByName
+		SELECT Name, PaymentType, DATE_FORMAT(ex.Date, "%d %b %Y") AS Date, Amount
+		FROM UserExpenses ex
+		INNER JOIN Users u ON ex.UserId = u.UserId
+		WHERE u.UserId = p_UserId AND Name like CONCAT(p_NameFilter , "%")
+		ORDER BY ex.UserExpensesId DESC;
+	
+		SET @row_number = 0;
+		SELECT *, (@row_number:=@row_number + 1) AS RowNum
+		FROM Temp_ExpensesFilteredByName;
+		
+		DROP TEMPORARY TABLE Temp_ExpensesFilteredByName;
+END$$
+DELIMITER ;
+
