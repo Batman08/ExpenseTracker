@@ -1,12 +1,17 @@
         <?php
         session_start();
-        // $allUserExpenses = GetAllUserExpenses($_SESSION['userId']);
+        $totalUserExpenses = GetTotalUserExpenses($_SESSION['userId']);
         ?>
 
-        <div class="row">
+        <div class="row padBottom25">
             <div class="col-sm-12">
                 <h3><i class="fas fa-user"></i> <?= $_SESSION["username"] ?></h3>
             </div>
+        </div>
+
+        <div class="alert alert-secondary" role="alert" style="font-weight: bold;">
+            <!-- <h5>Vaccination History</h5> -->
+            Total Number of Expenses: <?= $totalUserExpenses ?>
         </div>
 
         <div class="row" style="padding-bottom: 15px;">
@@ -17,7 +22,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="row padBottom25">
             <div class="col-4">Filter By :</div>

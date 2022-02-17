@@ -84,3 +84,9 @@ function UpdateUserExpense($p_UserId, $p_UpdateId, $p_Item, $p_PaymentType, $p_D
 {
     return CallDatabase("call spUpdateUserExpense('$p_UserId', '$p_UpdateId', '$p_Item', '$p_PaymentType', '$p_Date', '$p_Cost')", false);
 }
+
+function GetTotalUserExpenses($p_UserId)
+{
+    $total = CallDatabase("call spGetTotalUserExpenses('$p_UserId')", true);
+    return $total[0]['TotalUserExpenses'];
+}
