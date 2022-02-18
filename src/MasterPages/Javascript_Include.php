@@ -134,7 +134,7 @@
             success: function(data, status) {
                 $('#addStaticBackdrop').modal('hide');
                 addExpenseForm.reset();
-                displayData();
+                checkWhatDataToDisplay();
                 console.log(status);
             }
         });
@@ -150,7 +150,7 @@
             url: 'TrackExpenses_Delete.php',
             data: deleteData,
             success: function(data, status) {
-                displayData();
+                checkWhatDataToDisplay();
                 console.log(status);
             }
         });
@@ -197,7 +197,7 @@
             function(data, status) {
                 console.log(status);
                 $('#editStaticBackdrop').modal('hide');
-                displayData();
+                checkWhatDataToDisplay();
             }
         );
     }
@@ -260,11 +260,15 @@
         filtersVisibility('none', 'none', 'none', 'none')
     }
 
+
+    var currentSelectedValue = "";
+
     function checkFilterOption() {
+        // alert(selectedValue);
         var ddlFilterTable = document.querySelector('#ddlFilterTable');
         var selectedValue = ddlFilterTable.value;
-
-        // alert(selectedValue);
+        
+        currentSelectedValue = selectedValue;
 
         if (selectedValue === "Date") {
             filtersVisibility("block", "none", "none", "none");
@@ -279,7 +283,7 @@
         }
     }
 
-    function itemTableFilter(){
+    function itemTableFilter() {
         var itemFilterData = {
             ItemFilter: itemFilter.value,
         };
@@ -295,11 +299,25 @@
                 $('#tableTrackExpense').html(data);
                 console.log(status);
             },
-            error: function(status){
+            error: function(status) {
                 console.log(status);
             }
 
         });
+    }
+
+    function checkWhatDataToDisplay() {
+        if (currentSelectedValue === "Date") {
+            // dateTableFilter();
+        } else if (currentSelectedValue === "Item") {
+            itemTableFilter();
+        } else if (currentSelectedValue === "Cost") {
+            // costTableFilter();
+        } else if (currentSelectedValue === "PaymentType") {
+            // paymentTypeTableFilter();
+        } else {
+            displayData();
+        }
     }
 
 
