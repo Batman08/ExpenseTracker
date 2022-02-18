@@ -194,7 +194,7 @@ DELIMITER ;
 
 -- [spGetFilteredItemExpenses]
 -- This will filter the expenses by item
--- -------------------------------------------
+-- -------------------------------------
 
 DROP procedure IF EXISTS `spGetFilteredItemExpenses`;
 DELIMITER $$
@@ -215,3 +215,26 @@ BEGIN
 END$$
 DELIMITER ;
 
+
+-- [spGetFilteredCostExpenses]
+-- This will filter the expenses by cost
+-- -------------------------------------
+
+DROP procedure IF EXISTS `spGetFilteredCostExpenses`;
+DELIMITER $$
+CREATE PROCEDURE `spGetFilteredCostExpenses` (IN p_UserId INT, IN p_CostFilter DOUBLE)
+BEGIN
+	CREATE TEMPORARY TABLE Temp_ExpensesFilteredByCost
+		SELECT Name, PaymentType, DATE_FORMAT(ex.Date, "%d %b %Y") AS Date, Amount
+		FROM UserExpenses ex
+		INNER JOIN Users u ON ex.UserId = u.UserId
+		WHERE u.UserId = p_UserId AND ex.Amount = p_CostFilter
+		ORDER BY ex.UserExpensesId DESC;
+	
+		SET @row_number = 0;
+		SELECT *, (@row_number:=@row_number + 1) AS RowNum
+		FROM Temp_ExpensesFilteredByCost;
+		
+		DROP TEMPORARY TABLE Temp_ExpensesFilteredByCost;
+END$$
+DELIMITER ;
