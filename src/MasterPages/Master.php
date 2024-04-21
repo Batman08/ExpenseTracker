@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if ($_SESSION["userId"] == null ) {
+if ($_SESSION["userId"] == null) {
     if (basename($_SERVER['PHP_SELF']) != "SignUp.php" && basename($_SERVER['PHP_SELF']) != "Login.php") {
         header('Location: ../Login/Login.php');
     }
@@ -53,6 +53,23 @@ if ($_SESSION["userId"] == null ) {
             </ul>
         </footer>
     </div>
+
+    <!-- <footer class="border-top footer text-muted">
+        <div class="container">
+            <span class="text-muted">© Bilal Asghar 2022 - <?php echo date("Y"); ?></span>
+
+            <div style="float: right;">
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li class="ms-3">
+                        <a class="text-muted" href="" target="_blank">adsf</a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="text-muted" href="" target="_blank">asdf</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer> -->
 
     <?php include("Javascript_Include.php"); ?>
 

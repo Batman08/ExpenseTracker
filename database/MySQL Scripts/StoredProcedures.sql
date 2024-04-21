@@ -72,7 +72,8 @@ BEGIN
 CREATE TEMPORARY TABLE Temp_AllExpenses
 	SELECT Name, PaymentType, DATE_FORMAT(ex.Date, "%d %b %Y") AS Date, Amount
 	FROM UserExpenses ex
-	WHERE ex.UserId = p_UserId
+    INNER JOIN Users u ON ex.UserId = u.UserId
+	WHERE u.UserId = p_UserId
 	ORDER BY ex.UserExpensesId DESC;
 
 	SET @row_number = 0;
@@ -95,7 +96,8 @@ BEGIN
 CREATE TEMPORARY TABLE Temp_GetExpenseId
 	SELECT UserExpensesId
 	FROM UserExpenses ex
-	WHERE ex.UserId = p_UserId
+    INNER JOIN Users u ON ex.UserId = u.UserId
+	WHERE u.UserId = p_UserId
 	ORDER BY ex.UserExpensesId DESC;
 
 SET @row_number = 0;
@@ -236,5 +238,29 @@ BEGIN
 		FROM Temp_ExpensesFilteredByCost;
 		
 		DROP TEMPORARY TABLE Temp_ExpensesFilteredByCost;
+END$$
+DELIMITER ;
+
+
+-- [spGetFilteredPaymentTypeExpenses]
+-- This will filter the expenses by payment type
+-- ---------------------------------------------
+
+DROP procedure IF EXISTS `spGetFilteredPaymentTypeExpenses`;
+DELIMITER $$
+CREATE PROCEDURE `spGetFilteredPaymentTypeExpenses` (IN p_UserId INT, IN p_PaymentType VARCHAR(256))
+BEGIN
+	CREATE TEMPORARY TABLE Temp_ExpensesFilteredByPaymentType
+		SELECT Name, PaymentType, DATE_FORMAT(ex.Date, "%d %b %Y") AS Date, Amount
+		FROM UserExpenses ex
+		INNER JOIN Users u ON ex.UserId = u.UserId
+		WHERE u.UserId = p_UserId AND ex.PaymentType = p_PaymentType
+		ORDER BY ex.UserExpensesId DESC;
+	
+		SET @row_number = 0;
+		SELECT *, (@row_number:=@row_number + 1) AS RowNum
+		FROM Temp_ExpensesFilteredByPaymentType;
+		
+		DROP TEMPORARY TABLE Temp_ExpensesFilteredByPaymentType;
 END$$
 DELIMITER ;

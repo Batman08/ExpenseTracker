@@ -304,6 +304,10 @@
             }
 
         });
+
+        if (itemFilter.value === "") {
+            displayData();
+        }
     }
 
     function costTableFilter() {
@@ -331,6 +335,35 @@
         }
     }
 
+    function paymentTypeTableFilter() {
+        var selectedValue = paymentFilter.value;
+
+        var paymentTypeFilterData = {
+            PaymentTypeFilter: selectedValue,
+        };
+
+// alert(selectedValue);
+
+        $.ajax({
+            type: 'POST',
+            url: '../UserExpenses/TableFilters/TrackExpenses_PaymentTypeFilter.php',
+            data: paymentTypeFilterData,
+            success: function(data, status) {
+                console.log(status);
+                $('#tableTrackExpense').html(data);
+                console.log(status);
+            },
+            error: function(status) {
+                console.log(status);
+            }
+
+        });
+
+        if (paymentFilter.value === "") {
+            displayData();
+        }
+    }
+
     function checkWhatDataToDisplay() {
         if (currentSelectedValue === "Date") {
             // dateTableFilter();
@@ -339,7 +372,7 @@
         } else if (currentSelectedValue === "Cost") {
             costTableFilter();
         } else if (currentSelectedValue === "PaymentType") {
-            // paymentTypeTableFilter();
+            paymentTypeTableFilter();
         } else {
             displayData();
         }
@@ -377,5 +410,6 @@
         filterTableDDL.addEventListener("click", checkFilterOption);
         itemFilter.addEventListener("keyup", itemTableFilter);
         costFilter.addEventListener("keyup", costTableFilter);
+        paymentFilter.addEventListener("click", paymentTypeTableFilter);
     }
 </script>

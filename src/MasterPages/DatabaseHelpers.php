@@ -95,3 +95,13 @@ function GetFilteredItemExpenses($p_UserId, $p_NameFilter)
 {
     return CallDatabase("call spGetFilteredItemExpenses('$p_UserId', '$p_NameFilter')", true);
 }
+
+function GetFilteredCostExpenses($p_UserId, $p_CostFilter)
+{
+    return CallDatabase("call spGetFilteredCostExpenses('$p_UserId', '$p_CostFilter')", true);
+}
+
+function GetFilteredPaymentTypeExpenses($p_UserId, $p_PaymentTypeFilter)
+{
+    return CallDatabase("call spGetFilteredPaymentTypeExpenses('$p_UserId', '$p_PaymentTypeFilter')", true);
+}
